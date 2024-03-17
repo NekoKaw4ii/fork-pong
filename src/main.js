@@ -26,6 +26,9 @@ let player, palla, cursore;
 const keys = {};
 let inPartita = false;
 let testoApertura, puntoP1, puntoP2;
+let scorePlayer1 = 0, scorePlayer2 = 0;
+let scoreTextPlayer1, scoreTextPlayer2;
+let puntoSegnato = false;
 
 function preload() {
     this.load.image('sfondo', '../assets/images/sfondo.png');
@@ -95,7 +98,7 @@ function create() {
         'Punto per il giocatore 1',
         {
             fontFamily: 'Monaco, Courier, monospace',
-            fontSize: '20px',
+            fontSize: '25px',
             fill: '#fff'
         }
     );
@@ -114,19 +117,28 @@ function create() {
         }
     );
 
+    scoreTextPlayer1 = this.add.text(this.physics.world.bounds.width /4, 32, '0', { fontSize: '56px', fill: '#fff' }).setOrigin(0.5);
+    scoreTextPlayer2 = this.add.text(this.physics.world.bounds.width * 3 / 4, 32, '0', { fontSize: '56px', fill: '#fff' }).setOrigin(0.5);    
+
     puntoP2.setOrigin(0.5);
     puntoP2.setVisible(false);
 }
 
 function update() {
-    if (isPlayer1Point()) {
+    if ((!puntoSegnato) && (isPlayer2Point())) {
+        puntoSegnato = true;
+        scorePlayer1 += 1;
+        scoreTextPlayer1.setText(scorePlayer1);
         puntoP1.setVisible(true);
-        palla.disableBody(true, true);
+        this.time.delayedCall(1000, resetPalla, [this], this);
         return;
     }
-    if (isPlayer2Point()) {
+    if ((!puntoSegnato) && (isPlayer1Point())) {
+        puntoSegnato = true;
+        scorePlayer2 += 1;
+        scoreTextPlayer2.setText(scorePlayer2);
         puntoP2.setVisible(true);
-        palla.disableBody(true, true);
+        this.time.delayedCall(1000, resetPalla, [this], this);
         return;
     }
 
@@ -164,4 +176,17 @@ function isPlayer1Point() {
 
 function isPlayer2Point() {
     return palla.body.x > player1.body.x;
+}
+
+
+function resetPalla() {
+    palla.setPosition(this.physics.world.bounds.width / 2, this.physics.world.bounds.height / 2);
+    const vXIniziale = Math.random() * 200 + 50;
+    const vYIniziale = Math.random() * 200 + 50;
+    palla.setVelocityX(vXIniziale);
+    palla.setVelocityY(vYIniziale);
+    puntoP1.setVisible(false);
+    puntoP2.setVisible(false);
+    inPartita = false;
+    puntoSegnato = false;
 }
