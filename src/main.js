@@ -82,7 +82,7 @@ function create() {
         'Ciao! Benvenuto in Fork Pong!\nPremi spazio per giocare.\n\n\n\nPremi W e S per controllare\nil giocatore di sinistra e le freccette\nper quello di destra.',
         {
             fontFamily: 'Monaco, Courier, monospace',
-            fontSize: '20px',
+            fontSize: '30px',
             fill: '#fff'
         }
     );
