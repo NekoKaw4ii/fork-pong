@@ -1,3 +1,3 @@
-# Phaser3 Pong
+# Fork Pong
 
-A basic two-player local Pong game using Phaser3
+Pong but in space and with forks
