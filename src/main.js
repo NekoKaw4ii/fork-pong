@@ -122,7 +122,32 @@ function create() {
 
     puntoP2.setOrigin(0.5);
     puntoP2.setVisible(false);
+
+    let btnSpaziale = this.add.text(100, 100, 'Gravità Spaziale', { fill: '#fff' })
+    .setInteractive()
+    .on('pointerdown', () => { velocitaPalla = Math.random() * 200 + 50;; /* altre impostazioni per la modalità spaziale */ })
+    .on('pointerover', () => btnSpaziale.setScale(1.5))
+    .on('pointerout', () => btnSpaziale.setScale(1));
+
+let btnTerrestre = this.add.text(100, 150, 'Gravità Terrestre', { fill: '#fff' })
+    .setInteractive()
+    .on('pointerdown', () => { velocitaPalla = 800; /* altre impostazioni per la modalità terrestre */ })
+    .on('pointerover', () => btnTerrestre.setScale(1.5))
+    .on('pointerout', () => btnTerrestre.setScale(1));
+
+let btnPersonalizzata = this.add.text(100, 200, 'Personalizzata', { fill: '#fff' })
+    .setInteractive()
+    .on('pointerdown', () => { 
+        let velocitaUtente = prompt("Inserisci la velocità della palla:");
+        if (velocitaUtente !== null && velocitaUtente !== "") {
+            velocitaPalla = Number(velocitaUtente);
+        }
+    })
+    .on('pointerover', () => btnPersonalizzata.setScale(1.5))
+    .on('pointerout', () => btnPersonalizzata.setScale(1));
+
 }
+
 
 function update() {
     if ((!puntoSegnato) && (isPlayer2Point())) {
@@ -161,10 +186,8 @@ function update() {
         if (cursore.space.isDown) {
             palla.setVisible(true);
             inPartita = true;
-            const vXIniziale = Math.random() * 200 + 50;
-            const vYIniziale = Math.random() * 200 + 50;
-            palla.setVelocityX(vXIniziale);
-            palla.setVelocityY(vYIniziale);
+            palla.setVelocityX(velocitaPalla);
+            palla.setVelocityY(velocitaPalla);
             testoApertura.setVisible(false);
         }
     }
@@ -181,8 +204,9 @@ function isPlayer2Point() {
 
 function resetPalla() {
     palla.setPosition(this.physics.world.bounds.width / 2, this.physics.world.bounds.height / 2);
-    const vXIniziale = Math.random() * 200 + 50;
-    const vYIniziale = Math.random() * 200 + 50;
+    let angolo = Math.random() * 2 * Math.PI;
+    let vXIniziale = velocitaPalla * Math.cos(angolo);
+    let vYIniziale = velocitaPalla * Math.sin(angolo);
     palla.setVelocityX(vXIniziale);
     palla.setVelocityY(vYIniziale);
     puntoP1.setVisible(false);
