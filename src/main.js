@@ -125,13 +125,13 @@ function create() {
 
     let btnSpaziale = this.add.text(100, 100, 'Gravità Spaziale', { fill: '#fff' })
     .setInteractive()
-    .on('pointerdown', () => { velocitaPalla = Math.random() * 200 + 50;; /* altre impostazioni per la modalità spaziale */ })
+    .on('pointerdown', () => { velocitaPalla = Math.random() * 200 + 50;;  })
     .on('pointerover', () => btnSpaziale.setScale(1.5))
     .on('pointerout', () => btnSpaziale.setScale(1));
 
 let btnTerrestre = this.add.text(100, 150, 'Gravità Terrestre', { fill: '#fff' })
     .setInteractive()
-    .on('pointerdown', () => { velocitaPalla = 800; /* altre impostazioni per la modalità terrestre */ })
+    .on('pointerdown', () => { velocitaPalla = 800;  })
     .on('pointerover', () => btnTerrestre.setScale(1.5))
     .on('pointerout', () => btnTerrestre.setScale(1));
 
