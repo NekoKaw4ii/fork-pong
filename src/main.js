@@ -129,13 +129,13 @@ function create() {
     .on('pointerover', () => btnSpaziale.setScale(1.5))
     .on('pointerout', () => btnSpaziale.setScale(1));
 
-let btnTerrestre = this.add.text(100, 150, 'Gravità Terrestre', { fill: '#fff' })
+    let btnTerrestre = this.add.text(100, 150, 'Gravità Terrestre', { fill: '#fff' })
     .setInteractive()
     .on('pointerdown', () => { velocitaPalla = 800;  })
     .on('pointerover', () => btnTerrestre.setScale(1.5))
     .on('pointerout', () => btnTerrestre.setScale(1));
 
-let btnPersonalizzata = this.add.text(100, 200, 'Personalizzata', { fill: '#fff' })
+    let btnPersonalizzata = this.add.text(100, 200, 'Personalizzata', { fill: '#fff' })
     .setInteractive()
     .on('pointerdown', () => { 
         let velocitaUtente = prompt("Inserisci la velocità della palla:");
