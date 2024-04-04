@@ -63,6 +63,19 @@ function create() {
         'player', 
     );
 
+    testoApertura = this.add.text(
+        this.physics.world.bounds.width / 2,
+        this.physics.world.bounds.height / 2,
+        'Ciao! Benvenuto in Fork Pong!\nPremi spazio per giocare.\n\n\n\nPremi W e S per controllare\nil giocatore di sinistra e le freccette\nper quello di destra.',
+        {
+            fontFamily: 'Monaco, Courier, monospace',
+            fontSize: '30px',
+            fill: '#fff'
+        }
+    );
+    
+    testoApertura.setOrigin(0.5);
+
     cursore = this.input.keyboard.createCursorKeys();
     keys.w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     keys.s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -76,21 +89,18 @@ function create() {
     player1.setImmovable(true);
     player2.setImmovable(true);
     
-    this.physics.add.collider(palla, player1, null, null, this);
-    this.physics.add.collider(palla, player2, null, null, this);
-
-    testoApertura = this.add.text(
-        this.physics.world.bounds.width / 2,
-        this.physics.world.bounds.height / 2,
-        'Ciao! Benvenuto in Fork Pong!\nPremi spazio per giocare.\n\n\n\nPremi W e S per controllare\nil giocatore di sinistra e le freccette\nper quello di destra.',
-        {
-            fontFamily: 'Monaco, Courier, monospace',
-            fontSize: '30px',
-            fill: '#fff'
-        }
-    );
+    this.physics.add.collider(palla, player1, function() {
+        let angolo = Phaser.Math.Between(-45, 45);
+        let velocita = palla.body.velocity.length();
+        palla.setVelocity(velocita * Math.cos(angolo), velocita * Math.sin(angolo));
+    }, null, this);
     
-    testoApertura.setOrigin(0.5);
+    this.physics.add.collider(palla, player2, function() {
+        let angolo = Phaser.Math.Between(-45, 45);
+        let velocita = palla.body.velocity.length();
+        palla.setVelocity(velocita * Math.cos(angolo), velocita * Math.sin(angolo));
+    }, null, this);
+
 
     puntoP1 = this.add.text(
         this.physics.world.bounds.width / 2,
